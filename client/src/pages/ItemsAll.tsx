@@ -48,9 +48,6 @@ const ItemsAll = () => {
                 </Link>
 
                 <div className="flex justify-center items-end gap-3">
-                  <Button size={"icon"} onClick={async () => await dispatch(updateItem({ itemId: item._id, steamCurrentPrice: true }))}>
-                    <UpdateIcon />
-                  </Button>
                   <CreateUserItemForm itemID={item._id} className="h-9 w-9" title={<PlusIcon />} buyPrice={item.steamMarket.price} />
                 </div>
               </li>
