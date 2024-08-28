@@ -11,6 +11,7 @@
   "author": "em1",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "https": "^1.0.0"
   }
 }
