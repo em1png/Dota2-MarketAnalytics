@@ -3,28 +3,25 @@ import CreateUserItemForm from "@/components/forms/CreateUserItemForm";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { PlusIcon, UpdateIcon } from '@radix-ui/react-icons'
-import { useDispatch, useSelector } from "react-redux";
-import { itemsListSelector, updateItem } from "@/store/slices/itemsSlice";
+import { PlusIcon } from '@radix-ui/react-icons'
+import { useSelector } from "react-redux";
+import { itemsListSelector } from "@/store/slices/itemsSlice";
 import { Input } from "@/components/ui/input";
-import { AppDispatch } from "@/types/types";
+import { RootState } from "@/types/types";
 
 const ItemsAll = () => {
-  // HOOKS
-  const dispatch: AppDispatch = useDispatch();
-
   // STATES
   const [searchField, setSearchField] = useState('');
 
   // SELECTORS
   const itemsFetch = useSelector(itemsListSelector);
+  const authUserData = useSelector((store: RootState) => store.user.data);
 
   return (
     <div className='container mb-10'>
       <div className="flex items-center gap-3">
         <h1 className="text-2xl font-bold">ДОСТУПНО ПРЕДМЕТОВ — {itemsFetch && itemsFetch.length}</h1>
         <CreateItemForm />
-        <Button size={"sm"} variant={"outline"}><UpdateIcon /></Button>
       </div>
       <p className="t text-sm mb-5 text-white/70">{itemsFetch && new Date(itemsFetch[itemsFetch.length - 1]?.updatedAt).toLocaleString()}</p>
       <Input className="mb-5" placeholder="Поиск, введите название героя или предмета" type="text" value={searchField} onChange={(event) => setSearchField(event.target.value)} />
@@ -46,10 +43,11 @@ const ItemsAll = () => {
                     </div>
                   </div>
                 </Link>
-
-                <div className="flex justify-center items-end gap-3">
-                  <CreateUserItemForm itemID={item._id} className="h-9 w-9" title={<PlusIcon />} buyPrice={item.steamMarket.price} />
-                </div>
+                {authUserData?.accessLevel == 'admin' &&
+                  <div className="flex justify-center items-end gap-3">
+                    <CreateUserItemForm itemID={item._id} className="h-9 w-9" title={<PlusIcon />} buyPrice={item.steamMarket.price} />
+                  </div>
+                }
               </li>
             )
           }
