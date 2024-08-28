@@ -21,7 +21,7 @@ const ItemsAll = () => {
     <div className='container mb-10'>
       <div className="flex items-center gap-3">
         <h1 className="text-2xl font-bold">ДОСТУПНО ПРЕДМЕТОВ — {itemsFetch && itemsFetch.length}</h1>
-        <CreateItemForm />
+        {authUserData?.accessLevel == 'admin' && <CreateItemForm />}
       </div>
       <p className="t text-sm mb-5 text-white/70">{itemsFetch && new Date(itemsFetch[itemsFetch.length - 1]?.updatedAt).toLocaleString()}</p>
       <Input className="mb-5" placeholder="Поиск, введите название героя или предмета" type="text" value={searchField} onChange={(event) => setSearchField(event.target.value)} />
@@ -43,11 +43,10 @@ const ItemsAll = () => {
                     </div>
                   </div>
                 </Link>
-                {authUserData?.accessLevel == 'admin' &&
-                  <div className="flex justify-center items-end gap-3">
-                    <CreateUserItemForm itemID={item._id} className="h-9 w-9" title={<PlusIcon />} buyPrice={item.steamMarket.price} />
-                  </div>
-                }
+
+                <div className="flex justify-center items-end gap-3">
+                  <CreateUserItemForm itemID={item._id} className="h-9 w-9" title={<PlusIcon />} buyPrice={item.steamMarket.price} />
+                </div>
               </li>
             )
           }
