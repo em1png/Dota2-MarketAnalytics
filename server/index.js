@@ -45,12 +45,20 @@ const connectToDatabase = async () => {
 
 // Запуска сервера
 const startServer = () => {
-    const PORT = process.env.PORT || 4445;
-    app.listen(PORT, (err) => {
+    const PORT = process.env.PORT || 443; // Используем порт 443 для HTTPS
+
+    // Путь к сертификату и ключу
+    const options = {
+        key: fs.readFileSync('/etc/letsencrypt/live/emone.ru/privkey.pem'),
+        cert: fs.readFileSync('/etc/letsencrypt/live/emone.ru/fullchain.pem')
+    };
+
+    // Создание HTTPS-сервера
+    https.createServer(options, app).listen(PORT, (err) => {
         if (err) {
             return logger.error("[-] Error starting server:", err);
         }
-        logger.info(`[+] Server running on port ${PORT}!`);
+        logger.info(`[+] Server running on port ${PORT} (HTTPS)!`);
     });
 };
 
