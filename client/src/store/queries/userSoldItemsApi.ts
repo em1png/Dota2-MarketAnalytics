@@ -6,7 +6,7 @@ const token = localStorage.getItem("token");
 export const userSoldItemsApi = createApi({
   reducerPath: "UserSalesHistory",
   tagTypes: ["UserSalesHistory"],
-  baseQuery: fetchBaseQuery({ baseUrl: "http://45.147.179.138:4445/api/solditems", headers: { Authorization: `Bearer ${token}` }}),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://emone.ru/api/solditems", headers: { Authorization: `Bearer ${token}` }}),
   endpoints: (builder) => ({
 
     getUserSalesHistory: builder.query<IFetchGetUserSoldItems[], string>({
