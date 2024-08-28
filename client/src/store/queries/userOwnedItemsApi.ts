@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const userOwnedItemsApi = createApi({
   reducerPath: "userItems",
   tagTypes: ["UserItems"],
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4445/api/owneditems" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://45.147.179.138:4445/api/owneditems" }),
   endpoints: (builder) => ({
     getItems: builder.query({
       query: (userId: string) => ({url: `/${userId}`, headers: { Authorization: `Bearer ${window.localStorage.getItem("token")}` }}),

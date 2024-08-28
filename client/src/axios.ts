@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:4445',
+    baseURL: 'https://emone.ru:4445',
 });
 
 instance.interceptors.request.use((config) => {
